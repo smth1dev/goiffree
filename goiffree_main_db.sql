@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Φιλοξενητής: localhost
--- Χρόνος δημιουργίας: 26 Οκτ 2018 στις 12:42:41
+-- Χρόνος δημιουργίας: 26 Οκτ 2018 στις 17:01:18
 -- Έκδοση διακομιστή: 10.1.36-MariaDB
 -- Έκδοση PHP: 7.0.32
 
@@ -35,8 +35,18 @@ CREATE TABLE `store` (
   `store_phone_number` varchar(80) NOT NULL,
   `store_city` int(11) NOT NULL,
   `store_country` int(11) NOT NULL,
-  `store_website` varchar(150) NOT NULL
+  `store_website` varchar(150) NOT NULL,
+  `store_username` varchar(200) NOT NULL,
+  `store_password` varchar(400) NOT NULL,
+  `store_email` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Άδειασμα δεδομένων του πίνακα `store`
+--
+
+INSERT INTO `store` (`store_id`, `store_name`, `store_address`, `store_phone_number`, `store_city`, `store_country`, `store_website`, `store_username`, `store_password`, `store_email`) VALUES
+(1, '', '', '', 0, 0, '', 'user', '$2y$10$kO9rZ989pPymsSXgBgS0tuCBetZozgHr36ecVjy/rzdQSrynONSwO', 'user@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -61,21 +71,6 @@ CREATE TABLE `tables_category` (
   `store_id` int(11) NOT NULL,
   `tables_category_qnty` int(11) NOT NULL,
   `tables_category_name` varchar(150) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Δομή πίνακα για τον πίνακα `user`
---
-
-CREATE TABLE `user` (
-  `user_id` int(11) NOT NULL,
-  `user_username` varchar(100) NOT NULL,
-  `user_password` int(11) NOT NULL,
-  `store_id` int(11) NOT NULL,
-  `user_role_id` int(11) NOT NULL,
-  `user_name` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -104,13 +99,6 @@ ALTER TABLE `tables_category`
   ADD KEY `store_id` (`store_id`);
 
 --
--- Ευρετήρια για πίνακα `user`
---
-ALTER TABLE `user`
-  ADD PRIMARY KEY (`user_id`),
-  ADD KEY `store_id` (`store_id`);
-
---
 -- AUTO_INCREMENT για άχρηστους πίνακες
 --
 
@@ -118,7 +106,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT για πίνακα `store`
 --
 ALTER TABLE `store`
-  MODIFY `store_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `store_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT για πίνακα `tables`
@@ -131,12 +119,6 @@ ALTER TABLE `tables`
 --
 ALTER TABLE `tables_category`
   MODIFY `tables_category_id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT για πίνακα `user`
---
-ALTER TABLE `user`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Περιορισμοί για άχρηστους πίνακες
@@ -154,12 +136,6 @@ ALTER TABLE `tables`
 --
 ALTER TABLE `tables_category`
   ADD CONSTRAINT `tables_category_ibfk_1` FOREIGN KEY (`store_id`) REFERENCES `store` (`store_id`);
-
---
--- Περιορισμοί για πίνακα `user`
---
-ALTER TABLE `user`
-  ADD CONSTRAINT `user_ibfk_1` FOREIGN KEY (`store_id`) REFERENCES `store` (`store_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
