@@ -1,7 +1,7 @@
 <?php
 include('config.php');
 
-
+session_start();
 ?>
 
 <div ng-app="login_register_app" ng-controller="login_register_controller" class="container form_style">
@@ -133,13 +133,18 @@ app.controller('login_register_controller', function($scope, $http){
    url:"login.php",
    data:$scope.loginData
   }).success(function(data){
-   if(data.error != '')
+   if(data.error != "")
    {
     $scope.alertMsg = true;
     $scope.alertClass = 'alert-danger';
     $scope.alertMessage = data.error;
+    alert("error");
    }
-  
+   else
+   {
+    alert("success");
+    $window.location.href = "http://localhost/goiffree/dashboard.php";
+   }
   });
  };
 

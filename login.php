@@ -62,11 +62,9 @@ else
 }
 
 $output = array(
- 'error' => $validation_error
+ 'error' => ''
 );
-if($validation_error=''){
-  header("location:dashboard.php");
+if($success){
+header("location:dashboard.php");
 }
-echo json_encode($output);
-
 ?>
